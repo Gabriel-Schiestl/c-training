@@ -49,14 +49,13 @@ void* consumer(void* arg) {
         }
 
         int item = queue[head];
+        if (item == -1) {
+            pthread_mutex_unlock(&mutex);
+            break; 
+        }
         queueSize--;
         head = (head + 1) % MAX_ITEMS;
         printf("Consumer %d consumed message %d\n", id, item);
-
-        if (item == -1) {
-            pthread_mutex_unlock(&mutex);
-            break;
-        }
 
         if (queueSize == MAX_ITEMS - 1) {
             pthread_cond_signal(&cond);
