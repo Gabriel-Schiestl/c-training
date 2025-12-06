@@ -28,7 +28,7 @@ int get(CircularBuffer* buffer) {
 }
 
 CircularBuffer* newBuffer() {
-    CircularBuffer* buffer = (CircularBuffer*) malloc(sizeof(CircularBuffer));
+    CircularBuffer* buffer = malloc(sizeof *buffer);
 
     buffer->head = 0;
     buffer->tail = 0;
