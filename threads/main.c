@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <pthread.h>
 
-int count = 0;
+long long count = 0;
 pthread_mutex_t mutex;
 
 void* counter(void* arg) {
-    for(int i = 0; i < 50000; i++) {
-        pthread_mutex_lock(&mutex);
+    for(long long i = 0; i < 5000000000; i++) {
+        //pthread_mutex_lock(&mutex);
         count++;
-        pthread_mutex_unlock(&mutex);
+        //pthread_mutex_unlock(&mutex);
     }
 
     return NULL;
@@ -26,13 +26,13 @@ int main() {
         printf("Failed to initialize thread 1");
         return 1;
     }
-    if(pthread_create(&thread2, NULL, &counter, NULL) != 0) {
-        printf("Failed to initialize thread 2");
-        return 1;
-    }
+    // if(pthread_create(&thread2, NULL, &counter, NULL) != 0) {
+    //     printf("Failed to initialize thread 2");
+    //     return 1;
+    // }
 
     pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+    //pthread_join(thread2, NULL);
 
-    printf("Count in the end: %d", count);
+    printf("Count in the end: %lld", count);
 }
