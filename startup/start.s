@@ -1,9 +1,33 @@
+.data
+greeting: 
+    .asciz "Digite seu nome: "
+    greeting_len = . - greeting - 1
+
+name_buffer:
+    .space 64
+
+.text
 .global _start
 
 _start:
-    mov $10, %edi  
-    mov $5, %esi    
-    call soma     
-    mov %eax, %edi
+    mov $1, %rax
+    mov $1, %rdi
+    lea greeting(%rip), %rsi
+    mov $greeting_len, %rdx
+    syscall
+
+    mov $0, %rax
+    xor %rdi, %rdi
+    lea name_buffer(%rip), %rsi
+    mov $64, %rdx
+    syscall
+
+    mov $1, %rax
+    mov $1, %rdi
+    lea name_buffer(%rip), %rsi
+    mov $64, %rdx
+    syscall
+
     mov $60, %eax
-    syscall     
+    xor %rdi, %rdi
+    syscall
