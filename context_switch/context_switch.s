@@ -2,10 +2,10 @@
 .text
 .global context_switch
 .global trampoline
-.extern thread_start
+.extern hello
 
 trampoline:
-    call thread_start
+    call hello
 
 context_switch:
     mov rsp, rdi
